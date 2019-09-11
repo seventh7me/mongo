@@ -511,7 +511,7 @@ DB.prototype.copyDatabase = function(
 
     // Use the copyDatabase native helper for SCRAM-SHA-1/256
     if (mechanism != "MONGODB-CR") {
-        // TODO SERVER-30886: Add session support for Mongo.prototype.copyDatabaseWithSCRAM().
+        // MTODO SERVER-30886: Add session support for Mongo.prototype.copyDatabaseWithSCRAM().
         return this.getMongo().copyDatabaseWithSCRAM(
             fromdb, todb, fromhost, username, password, slaveOk);
     }
@@ -1830,12 +1830,12 @@ DB.prototype.disableFreeMonitoring = function() {
 // DB's getProperty() handler in C++ takes precedence when a property isn't defined on the DB
 // instance directly. The "hasOwnProperty" property is defined on Object.prototype, so we must
 // resort to using the function explicitly ourselves.
-(function(hasOwnProperty) {
+
 DB.prototype.getSession = function() {
-    if (!hasOwnProperty.call(this, "_session")) {
+    if (!this.hasOwnProperty("_session")) {
         this._session = this.getMongo()._getDefaultSession();
     }
     return this._session;
 };
-})(Object.prototype.hasOwnProperty);
+
 }());

@@ -148,7 +148,7 @@ var {
                 wireVersion <= client.getMaxWireVersion();
         }
 
-        // TODO: Update this whitelist, or convert it to a blacklist depending on the outcome of
+        // MTODO: Update this whitelist, or convert it to a blacklist depending on the outcome of
         // SERVER-31743.
         const kCommandsThatSupportReadConcern = new Set([
             "aggregate",
@@ -284,7 +284,7 @@ var {
                 }
             }
 
-            // TODO SERVER-31868: A user should get back an error if they attempt to advance the
+            // MTODO SERVER-31868: A user should get back an error if they attempt to advance the
             // DriverSession's operationTime manually when talking to a stand-alone mongod. Removing
             // the `(client.isReplicaSetMember() || client.isMongos())` condition will also involve
             // calling resetOperationTime_forTesting() in JavaScript tests that start different
@@ -345,7 +345,7 @@ var {
                 cmdName = Object.keys(cmdObj)[0];
             }
 
-            // TODO SERVER-33921: Revisit how the mongo shell decides whether it should retry a
+            // MTODO SERVER-33921: Revisit how the mongo shell decides whether it should retry a
             // command or not.
             const sessionOptions = driverSession.getOptions();
             let numRetries =

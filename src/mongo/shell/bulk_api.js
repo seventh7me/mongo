@@ -275,7 +275,7 @@ var _bulk_api_module = (function() {
                 for (var i = 0; i < bulkResult.writeConcernErrors.length; i++) {
                     var err = bulkResult.writeConcernErrors[i];
                     errmsg = errmsg + err.errmsg;
-                    // TODO: Something better
+                    // MTODO: Something better
                     if (i != bulkResult.writeConcernErrors.length - 1) {
                         errmsg = errmsg + " and ";
                     }

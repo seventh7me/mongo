@@ -105,6 +105,7 @@ DBQuery.prototype._exec = function() {
         assert.eq(0, this._numReturned);
         this._cursorSeen = 0;
 
+        //TODO use commands to fetch documents
         if (this._mongo.useReadCommands() && this._canUseFindCommand()) {
             var canAttachReadPref = true;
             var findCmd = this._convertToCommand(canAttachReadPref);
@@ -131,13 +132,7 @@ DBQuery.prototype._exec = function() {
                 throw new Error("allowDiskUse option requires use of read commands");
             }
 
-            this._cursor = this._mongo.find(this._ns,
-                                            this._query,
-                                            this._fields,
-                                            this._limit,
-                                            this._skip,
-                                            this._batchSize,
-                                            this._options);
+            this._cursor = this._mongo.find(this);
         }
     }
     return this._cursor;
@@ -407,7 +402,7 @@ DBQuery.prototype.itcount = function() {
     // with some very large cursors.  SpiderMonkey appears happy to allow these objects to
     // accumulate, so regular gc() avoids an overly large memory footprint.
     //
-    // TODO: migrate this function into c++
+    // MTODO: migrate this function into c++
     var bytesSinceGC = 0;
 
     while (this.hasNext()) {
