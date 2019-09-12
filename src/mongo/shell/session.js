@@ -365,7 +365,7 @@ var {
                 try {
                     res = clientFunction.apply(client, clientFunctionArguments);
                 } catch (e) {
-                    if (!isNetworkError(e) || numRetries === 0) {
+                    if ((!isNetworkError(e) && !isCommandRetryable(e)) || numRetries === 0) {
                         throw e;
                     }
 

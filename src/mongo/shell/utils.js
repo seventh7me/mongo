@@ -68,6 +68,12 @@ function retryOnNetworkError(func, numRetries, sleepMs) {
     }
 }
 
+function isCommandRetryable(error) {
+    if (typeof error.isCommandRetryable == 'function')
+        return error.isCommandRetryable();
+    return false
+}
+
 // Checks if a Javascript exception is a network error.
 function isNetworkError(error) {
     let networkErrs = [
