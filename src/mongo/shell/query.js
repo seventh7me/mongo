@@ -513,6 +513,14 @@ DBQuery.prototype.comment = function(comment) {
     return this._addSpecial("$comment", comment);
 };
 
+DBQuery.prototype.maxScan = function(maxScan) {
+    return this._addSpecial("$maxScan", maxScan);
+};
+
+DBQuery.prototype.snapshot = function() {
+    return this._addSpecial("$snapshot", true);
+};
+
 DBQuery.prototype.explain = function(verbose) {
     var explainQuery = new DBExplainQuery(this, verbose);
     return explainQuery.finish();
