@@ -216,6 +216,14 @@ DBQuery.prototype._convertToCommand = function(canAttachReadPref) {
         cmd["showRecordId"] = this._query.$showDiskLoc;
     }
 
+    if ("$maxScan" in this._query) {
+        cmd["maxScan"] = this._query.$maxScan;
+    }
+
+    if ("$snapshot" in this._query) {
+        cmd["snapshot"] = this._query.$snapshot;
+    }
+
     if ("readConcern" in this._query) {
         cmd["readConcern"] = this._query.readConcern;
     }

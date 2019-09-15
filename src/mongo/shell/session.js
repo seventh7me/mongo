@@ -503,7 +503,7 @@ var {
 
     // The server session maintains the state of a transaction, a monotonically increasing txn
     // number, and a transaction's read/write concerns.
-    function ServerSession(client) {
+    function ServerSession(client, sessionOptions) {
         let _txnOptions;
 
         // Keep track of the next available statement id of a transaction.
@@ -514,7 +514,7 @@ var {
             throw new DriverSession.UnsupportedError(
                 "Logical Sessions are only supported on server versions 3.6 and greater.");
         }
-        this.handle = client._startSession();
+        this.handle = client._startSession(sessionOptions);
 
         function serverSupports(wireVersion) {
             return client.getMinWireVersion() <= wireVersion &&
@@ -847,7 +847,7 @@ var {
                 _options = new SessionOptions(_options);
             }
 
-            this._serverSession = implMethods.createServerSession(client);
+            this._serverSession = implMethods.createServerSession(client, options);
 
             this._isExplicit = true;
 
@@ -990,8 +990,8 @@ var {
     }
 
     const DriverSession = makeDriverSessionConstructor({
-        createServerSession: function createServerSession(client) {
-            return new ServerSession(client);
+        createServerSession: function createServerSession(client, sessionOptions) {
+            return new ServerSession(client, sessionOptions);
         },
 
         endSession: function endSession(serverSession) {
@@ -1039,7 +1039,7 @@ var {
     const DummyDriverSession =
         makeDriverSessionConstructor(  // Force clang-format to break this line.
             {
-                createServerSession: function createServerSession(client) {
+                createServerSession: function createServerSession(client, sessionOptions) {
                     return {
                         injectSessionId: function injectSessionId(cmdObj) {
                             return cmdObj;
