@@ -522,7 +522,7 @@ var {
         }
 
         const hasTxnState = ((name) => this.handle.getTxnState() === name);
-        const setTxnState = ((name) => this.handle.setTxnState(name));
+        const setTxnState = ((name, options) => this.handle.setTxnState(name, options));
 
         this.isTxnActive = function isTxnActive() {
             return hasTxnState("active");
@@ -683,9 +683,13 @@ var {
                     "Transactions are only supported on server versions 4.0 and greater.");
             }
             _txnOptions = new TransactionOptions(txnOptsObj);
-            setTxnState("active");
+            setTxnState("active", txnOptsObj);
             _nextStatementId = 0;
             this.handle.incrementTxnNumber();
+        };
+
+        this.registerJsSession = function registerJsSession(session, fun) {
+            this.handle.registerJsSession(session, fun)
         };
 
         this.commitTransaction = function commitTransaction(driverSession) {
@@ -946,6 +950,7 @@ var {
 
             this.startTransaction = function startTransaction(txnOptsObj = {}) {
                 this._serverSession.startTransaction(txnOptsObj);
+                this._serverSession.registerJsSession(this, this.abortTransaction);
             };
 
             this.startTransaction_forTesting = function startTransaction_forTesting(
@@ -1072,6 +1077,9 @@ var {
                         startTransaction: function startTransaction() {
                             throw new Error("Must call startSession() on the Mongo connection " +
                                             "object before starting a transaction.");
+                        },
+
+                        registerJsSession: function registerJsSession(session, fun) {
                         },
 
                         commitTransaction: function commitTransaction() {
