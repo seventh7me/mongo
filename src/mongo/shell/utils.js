@@ -812,7 +812,7 @@ shellHelper.use = function(dbname) {
         return;
     }
     db = db.getSiblingDB(dbname);
-    nativeCallback.switchDB(dbname);
+    mongocb.switchDB(dbname);
 };
 
 shellHelper.set = function(str) {
