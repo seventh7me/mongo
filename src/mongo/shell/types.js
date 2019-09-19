@@ -712,11 +712,11 @@ tojsonObject = function(x, indent, nolint, depth) {
 };
 
 printjson = function(x) {
-    print(tojson(x));
+    printJson(x);
 };
 
 printjsononeline = function(x) {
-    print(tojsononeline(x));
+    printJsonOneLine(x);
 };
 
 isString = function(x) {
