@@ -559,7 +559,7 @@ Mongo.prototype._getDefaultSession = function getDefaultSession() {
                     this._setDummyDefaultSession();
                 } else {
                     print("ERROR: Implicit session failed: " + e.message);
-                    throw (e);
+                    this._setDummyDefaultSession();
                 }
             }
         } else {
