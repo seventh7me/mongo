@@ -812,7 +812,7 @@ shellHelper.use = function(dbname) {
         return;
     }
     db = db.getSiblingDB(dbname);
-    print("switched to db " + db.getName());
+    nativeCallback.switchDB(dbname);
 };
 
 shellHelper.set = function(str) {
