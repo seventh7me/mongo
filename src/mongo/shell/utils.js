@@ -811,7 +811,7 @@ shellHelper.defineCollection = function(collection) {
         print("bad defineCollection parameter");
         return;
     }
-    if (db === undefined || db.hasOwnProperty(collection)) {
+    if (db === undefined) {
         return;
     }
     db[collection] = db.getCollection(collection);
