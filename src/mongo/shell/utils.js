@@ -859,6 +859,10 @@ shellHelper.it = function() {
     shellPrintHelper(___it___);
 };
 
+shellHelper.printDB = function() {
+    print(db.getName())
+};
+
 shellHelper.show = function(what) {
     assert(typeof what == "string");
 
