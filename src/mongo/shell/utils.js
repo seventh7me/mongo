@@ -805,6 +805,19 @@ shellHelper = function(command, rest, shouldPrint) {
     return res;
 };
 
+shellHelper.defineCollection = function(collection) {
+    var s = "" + collection;
+    if (s == "") {
+        print("bad defineCollection parameter");
+        return;
+    }
+    if (db === undefined || db.hasOwnProperty(collection)) {
+        return;
+    }
+    db[collection] = db.getCollection(collection);
+    mongocb.defineCollection(collection);
+};
+
 shellHelper.use = function(dbname) {
     var s = "" + dbname;
     if (s == "") {
